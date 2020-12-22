@@ -1,0 +1,7 @@
+Ask user for a number between 1 and 8 (x)
+Select number of lines to generate based on input
+Line 1 will have x-1 spaces and x hashes
+Lines 2 will have x-2 spaces and x hashes
+etc.
+Repeat until all lines are complete
+
