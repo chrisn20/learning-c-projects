@@ -1,10 +1,13 @@
 // CS50 Academic Honesty - when going through the CS50x 2020 version of this problem, I received some help for the solution from Youtube.
-// I therefore did not submit my solution to the pset at the time
+// I therefore did not submit my solution to the pset at the time as I felt it might stray on the boundary of reasonableness
 // For this implementation, I have redone the full pset (including doing the new lab) without any outside help
 // I am therefore comfortable that it is reasonable for me to submit this version of the pset
 // In addition, I have practiced the concepts of linked lists in other problems, including some of the first few days of AoC 2020
 // which can be found on my github repository: https://github.com/chrisn20/learning-c-projects/tree/main/aoc2020
 // to demonstrate to myself that I fully understood these concepts and could use them for other problems.
+
+// 8 Jan 2021
+// Resubmitted again as did end up writing a custom hash function to improve on initial run time (down to 0.12 on local IDE)
 
 // Implements a dictionary's functionality
 
@@ -26,7 +29,7 @@ typedef struct node
 node;
 
 // Number of buckets in hash table
-const unsigned int N = 26;
+const unsigned int N = 26 * LENGTH * LENGTH;
 
 // Global var to keep track of words in dictionary
 int size_of_dictionary = 0;
@@ -57,8 +60,14 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    // Hash based on first letter in word - not looking to optimise this solution, just to complete pset.
-    return tolower(word[0]) % N;
+    // Custom hash - add all letters of word then times by length of word
+    int index = 0;
+    int length = strlen(word);
+    for (int i = 0; i < length; i++)
+    {
+        index += tolower(word[i]) % 26;
+    }
+    return index * length;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
